@@ -1,0 +1,64 @@
+flowchart LR
+    backlog([Backlog])
+    arch_ctx{Arch<br/>Context?}
+    po[PO Analysis<br/><i>what & why</i>]
+    domain_research{Domain<br/>Research?}
+    research_domain[Domain Research<br/><i>researcher</i>]
+    tl[TL Design<br/><i>how</i>]
+    arch_review[Arch Review<br/><i>hard gate</i>]
+    tech_research{Tech<br/>Research?}
+    research_tech[Tech Research<br/><i>researcher</i>]
+    decompose{Decompose?}
+    decomposed[[Decomposed<br/><i>see below</i>]]
+    dev[DEV Planning<br/><i>plan.md</i>]
+    impl[Implementation<br/><i>write code</i>]
+    qa[QA Verification]
+    ctx[Context Update<br/><i>CLAUDE.md</i>]
+    arch_upd[Arch Update<br/><i>architecture/</i>]
+    summary[PO Summary<br/><i>summary.md</i>]
+    commit[Git Commit<br/><i>user approves</i>]
+    done([Done])
+
+    backlog --> arch_ctx
+    arch_ctx -->|yes| arch_ctx_run[Arch Context<br/><i>system-architect</i>] --> po
+    arch_ctx -->|skip| po
+    po --> domain_research
+    domain_research -->|yes| research_domain
+    research_domain --> tl
+    domain_research -->|skip| tl
+    tl --> arch_review
+    arch_review -->|approved| tech_research
+    arch_review -->|rejected| tl
+    tech_research -->|yes| research_tech
+    research_tech --> decompose
+    tech_research -->|skip| decompose
+    decompose -->|no| dev
+    decompose -->|yes| decomposed
+    dev --> impl
+    impl --> qa
+    qa --> ctx
+    ctx --> arch_upd
+    arch_upd --> summary
+    summary --> commit
+    commit --> done
+
+    style backlog fill:#607D8B,color:#fff,stroke:none
+    style done fill:#4CAF50,color:#fff,stroke:none
+    style po fill:#2196F3,color:#fff,stroke:none
+    style tl fill:#2196F3,color:#fff,stroke:none
+    style dev fill:#FF9800,color:#fff,stroke:none
+    style impl fill:#FF9800,color:#fff,stroke:none
+    style qa fill:#9C27B0,color:#fff,stroke:none
+    style ctx fill:#9C27B0,color:#fff,stroke:none
+    style arch_upd fill:#009688,color:#fff,stroke:none
+    style summary fill:#9C27B0,color:#fff,stroke:none
+    style commit fill:#F44336,color:#fff,stroke:none
+    style research_domain fill:#00BCD4,color:#fff,stroke:none
+    style research_tech fill:#00BCD4,color:#fff,stroke:none
+    style decomposed fill:#795548,color:#fff,stroke:none
+    style domain_research fill:#00BCD4,color:#fff,stroke:none
+    style tech_research fill:#00BCD4,color:#fff,stroke:none
+    style decompose fill:#00BCD4,color:#fff,stroke:none
+    style arch_ctx fill:#009688,color:#fff,stroke:none
+    style arch_ctx_run fill:#009688,color:#fff,stroke:none
+    style arch_review fill:#009688,color:#fff,stroke:none

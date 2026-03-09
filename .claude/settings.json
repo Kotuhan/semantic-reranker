@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(director)",
+      "Skill(director:*)",
+      "Skill(doer)",
+      "Skill(doer:*)",
+      "Skill(research)",
+      "Skill(research:*)",
+      "Skill(workflow:*)",
+      "Skill(workflow:update-context)",
+      "Skill(workflow:update-context:*)",
+      "Bash(task-master *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(pnpm *)",
+      "Bash(npx prisma *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(curl:*)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(chmod 777 *)"
+    ]
+  }
+}

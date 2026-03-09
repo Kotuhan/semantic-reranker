@@ -1,0 +1,79 @@
+{
+  "ideal_rankings": [
+    {
+      "query": "vehicle bomb attacks in the Middle East",
+      "top_10": [
+        {"rank": 1, "report_id": "RPT-001", "rationale": "VBIED attack on military convoy in Mosul, Iraq — exact match: vehicle bomb + Middle East"},
+        {"rank": 2, "report_id": "RPT-006", "rationale": "Car-borne IED detonated outside ministry in Aden, Yemen — vehicle bomb + Middle East"},
+        {"rank": 3, "report_id": "RPT-018", "rationale": "Car-borne IED factory in Raqqa, Syria — vehicle bomb production + Middle East"},
+        {"rank": 4, "report_id": "RPT-027", "rationale": "Multiple IEDs in Iraq targeting election infrastructure — IEDs in Middle East, adjacent to vehicle bomb threat"},
+        {"rank": 5, "report_id": "RPT-004", "rationale": "RCIED on highway in Kandahar — IED attack in broader Middle East/Central Asia region"},
+        {"rank": 6, "report_id": "RPT-003", "rationale": "PBIED at governor's compound in Afghanistan — explosive attack in region, different delivery method"},
+        {"rank": 7, "report_id": "RPT-007", "rationale": "Drone attack in Syria — Middle East attack but not vehicle bomb"},
+        {"rank": 8, "report_id": "RPT-025", "rationale": "TNT smuggled to Sinai — explosives in Middle East supporting future attacks"},
+        {"rank": 9, "report_id": "RPT-013", "rationale": "Explosive belt workshop in Idlib, Syria — Middle East bomb manufacturing"},
+        {"rank": 10, "report_id": "RPT-012", "rationale": "Cyber attack on Saudi chemical plant — Middle East threat but different attack vector"}
+      ]
+    },
+    {
+      "query": "homemade explosives from household chemicals",
+      "top_10": [
+        {"rank": 1, "report_id": "RPT-023", "rationale": "TATP synthesis manual using nail polish remover, hair bleach, battery acid — exact match: homemade explosive from household chemicals"},
+        {"rank": 2, "report_id": "RPT-009", "rationale": "HMTD lab using hexamine fuel tablets, citric acid, hydrogen peroxide — household/pharmacy items producing homemade explosive"},
+        {"rank": 3, "report_id": "RPT-002", "rationale": "TATP precursors seized: hydrogen peroxide, acetone, sulfuric acid — household-obtainable chemicals for homemade explosive"},
+        {"rank": 4, "report_id": "RPT-021", "rationale": "Hydrogen peroxide purchased online for TATP production — procurement of household chemical for homemade explosive"},
+        {"rank": 5, "report_id": "RPT-028", "rationale": "Urea nitrate from garden fertilizer and nitric acid — homemade explosive from commercially available chemicals"},
+        {"rank": 6, "report_id": "RPT-018", "rationale": "Homemade ammonium nitrate-aluminum mixture in VBIED factory — homemade explosive production"},
+        {"rank": 7, "report_id": "RPT-027", "rationale": "Homemade explosive in RCIEDs — uses homemade explosive in operational devices"},
+        {"rank": 8, "report_id": "RPT-016", "rationale": "Potassium chlorate trafficking — oxidizer for improvised explosive mixtures"},
+        {"rank": 9, "report_id": "RPT-029", "rationale": "Potassium nitrate and sulfur for black powder — traditional homemade explosive ingredients"},
+        {"rank": 10, "report_id": "RPT-008", "rationale": "Ammonium nitrate smuggling for IED production — key precursor for homemade explosives"}
+      ]
+    },
+    {
+      "query": "suicide attacks on government officials",
+      "top_10": [
+        {"rank": 1, "report_id": "RPT-003", "rationale": "PBIED self-detonation at provincial governor's compound — suicide attack directly targeting government official"},
+        {"rank": 2, "report_id": "RPT-006", "rationale": "Car bomb targeting ministry motorcade — attack on government officials (Ministry of Interior)"},
+        {"rank": 3, "report_id": "RPT-020", "rationale": "Self-detonation at military checkpoint — suicide attack on government security forces"},
+        {"rank": 4, "report_id": "RPT-015", "rationale": "Drone assassination attempt on senior military commander — attack on government/military official"},
+        {"rank": 5, "report_id": "RPT-011", "rationale": "Suicide bomber at mosque — suicide attack methodology, mass casualty, not government target"},
+        {"rank": 6, "report_id": "RPT-027", "rationale": "IEDs targeting election infrastructure — attack on government democratic process"},
+        {"rank": 7, "report_id": "RPT-013", "rationale": "Suicide vest workshop — manufacturing capability for suicide attacks"},
+        {"rank": 8, "report_id": "RPT-004", "rationale": "RCIED targeting police patrol — attack on government security, not suicide method"},
+        {"rank": 9, "report_id": "RPT-026", "rationale": "Plot against government water infrastructure — targeting government facility"},
+        {"rank": 10, "report_id": "RPT-001", "rationale": "VBIED against military convoy — attack on government forces, potentially suicide delivery"}
+      ]
+    },
+    {
+      "query": "remote-controlled detonation methods",
+      "top_10": [
+        {"rank": 1, "report_id": "RPT-004", "rationale": "RCIED with mobile phone trigger — textbook remote-controlled detonation using cell phone receiver"},
+        {"rank": 2, "report_id": "RPT-027", "rationale": "Multiple RCIEDs with Nokia phone receivers and electric detonators — radio-controlled detonation method"},
+        {"rank": 3, "report_id": "RPT-022", "rationale": "IED triggered by long-range radio transmitter on encrypted frequency — remote radio detonation"},
+        {"rank": 4, "report_id": "RPT-006", "rationale": "Car bomb triggered via command wire — remote detonation via physical wire"},
+        {"rank": 5, "report_id": "RPT-010", "rationale": "Command-wire IED with electrical firing cable — remote detonation via command wire method"},
+        {"rank": 6, "report_id": "RPT-015", "rationale": "Drone with servo-activated release mechanism — remote-controlled explosive delivery"},
+        {"rank": 7, "report_id": "RPT-007", "rationale": "Drone-dropped munition — remotely controlled explosive delivery system"},
+        {"rank": 8, "report_id": "RPT-030", "rationale": "FPV kamikaze drone — remotely piloted explosive device"},
+        {"rank": 9, "report_id": "RPT-012", "rationale": "Remote cyber manipulation of industrial systems — remote-controlled but non-explosive"},
+        {"rank": 10, "report_id": "RPT-018", "rationale": "VBIED factory with detonating cord — detonation components but not remote method specifically"}
+      ]
+    },
+    {
+      "query": "smuggling of explosive precursor materials",
+      "top_10": [
+        {"rank": 1, "report_id": "RPT-008", "rationale": "Ammonium nitrate intercepted at Turkish border concealed in fertilizer — smuggling of explosive precursor"},
+        {"rank": 2, "report_id": "RPT-016", "rationale": "Potassium chlorate trafficking ring from industrial suppliers to extremist cells — precursor trafficking"},
+        {"rank": 3, "report_id": "RPT-014", "rationale": "Calcium ammonium nitrate diverted via fishing vessels — precursor smuggling network"},
+        {"rank": 4, "report_id": "RPT-029", "rationale": "Potassium nitrate and sulfur bartered across Afghan-Pakistan border — precursor smuggling"},
+        {"rank": 5, "report_id": "RPT-025", "rationale": "TNT and detonators smuggled via maritime route — finished explosive smuggling"},
+        {"rank": 6, "report_id": "RPT-021", "rationale": "Hydrogen peroxide purchased with falsified credentials — precursor procurement (not smuggling but illicit acquisition)"},
+        {"rank": 7, "report_id": "RPT-002", "rationale": "TATP precursors (hydrogen peroxide, acetone) seized — precursor stockpiling"},
+        {"rank": 8, "report_id": "RPT-009", "rationale": "HMTD lab with precursor chemicals — precursor procurement and manufacturing"},
+        {"rank": 9, "report_id": "RPT-028", "rationale": "Urea nitrate synthesis from commercial fertilizer — precursor knowledge for improvised explosives"},
+        {"rank": 10, "report_id": "RPT-023", "rationale": "TATP synthesis instructions from consumer products — precursor knowledge dissemination"}
+      ]
+    }
+  ]
+}
