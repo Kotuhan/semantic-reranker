@@ -26,7 +26,7 @@ docs/tasks/
 
 | ID | Name | Status | Dependencies | Folder |
 |----|------|--------|--------------|--------|
-| task-002 | Benchmark different re-ranking approaches | backlog | task-001 | task-002-reranker-benchmark |
+| task-002 | Benchmark different re-ranking approaches | done | task-001 | task-002-reranker-benchmark |
 | <!-- Add tasks here --> |
 
 ---
@@ -58,6 +58,7 @@ graph TD
 | ID | Date | Summary |
 |----|------|---------|
 | task-001 | 2026-03-09 | Semantic re-ranker for intelligence reports: 3.1x search quality improvement over keyword baseline using cross-encoder model |
+| task-002 | 2026-03-09 | Benchmark 15 re-ranking approaches: best config (bge-reranker-base + subcats) achieves 3.8x improvement (NDCG@10=0.8283) |
 | <!-- Completed tasks logged here --> |
 
 ---

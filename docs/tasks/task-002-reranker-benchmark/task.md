@@ -1,7 +1,7 @@
 ---
 id: task-002
 title: Benchmark different re-ranking approaches
-status: backlog
+status: done
 priority: high
 dependencies: [task-001]
 created_at: 2026-03-09
@@ -80,10 +80,64 @@ _To be filled by TL agent_
 
 ## Implementation Log (DEV)
 
-_Pending_
+### Changes Made
+
+1. **Extracted metrics** -- Moved `compute_ndcg` and `compute_precision` from `evaluate.py` to new `src/reranker/metrics.py`. Updated `evaluate.py` imports.
+
+2. **Created `benchmark.py`** -- 15 experiments across 5 groups:
+   - Text Composition (4): title-only, title+desc, title+desc+loc [baseline], title+desc+loc+subcats
+   - Subcategory Scoring (4): category bonus beta=0.5/1.0/2.0, weighted subcat enrichment
+   - Models (2): MiniLM-L-12-v2, bge-reranker-base
+   - Best Combinations (2): bge-reranker-base+subcats, MiniLM-L-12+subcats
+   - Hybrid Scoring (3): alpha=0.7/0.8/0.9
+
+3. **Applied best configuration** -- Winner: `BAAI/bge-reranker-base` + subcategories in text
+   - Updated `DEFAULT_MODEL` in `reranker.py` to `BAAI/bge-reranker-base`
+   - Updated `get_report_text()` in `utils.py` to include flattened subcategories
+   - Updated model name in `main.py` and `evaluate.py` headers
+
+### Benchmark Results Summary
+
+| Experiment | NDCG@10 | P@5 | dNDCG |
+|---|---|---|---|
+| title only | 0.6445 | 0.6800 | -0.0462 |
+| title + desc | 0.6739 | 0.6800 | -0.0168 |
+| title + desc + loc [BASELINE] | 0.6908 | 0.6800 | +0.0000 |
+| title + desc + loc + subcats | 0.7403 | 0.7200 | +0.0495 |
+| category bonus beta=0.5 | 0.6957 | 0.6800 | +0.0049 |
+| category bonus beta=1.0 | 0.6961 | 0.7200 | +0.0053 |
+| category bonus beta=2.0 | 0.6922 | 0.6800 | +0.0014 |
+| weighted subcat enrichment | 0.7158 | 0.6800 | +0.0250 |
+| MiniLM-L-12-v2 | 0.7401 | 0.6800 | +0.0494 |
+| bge-reranker-base | 0.7452 | 0.7200 | +0.0545 |
+| **bge-reranker-base + subcats** | **0.8283** | **0.8000** | **+0.1376** |
+| MiniLM-L-12 + subcats | 0.7618 | 0.8000 | +0.0710 |
+| hybrid alpha=0.7 | 0.5739 | 0.5600 | -0.1169 |
+| hybrid alpha=0.8 | 0.5972 | 0.6400 | -0.0935 |
+| hybrid alpha=0.9 | 0.6419 | 0.6800 | -0.0488 |
+
+### Key Findings
+
+1. **Winner: bge-reranker-base + subcategories** -- NDCG@10=0.8283 (+19.9% over baseline), P@5=0.8000 (+17.6%)
+2. **Subcategories as text is very effective** -- adding flattened subcategories improves every model
+3. **bge-reranker-base outperforms MiniLM models** -- even without subcats, it beats MiniLM-L-12-v2
+4. **Hybrid scoring hurts** -- keyword score interpolation degrades results at all alpha values
+5. **Category bonus is marginal** -- additive bonus provides <1% improvement
+6. **Latency is acceptable** -- bge-reranker-base at ~1.1s per query, well within 2-3s budget
 
 ---
 
 ## QA Notes (QA)
 
-_Pending_
+**Verdict**: APPROVED
+
+All acceptance criteria verified:
+- Benchmark table shows all experiments with NDCG@10, P@5, delta vs baseline
+- Text composition variants: 4 tested (title-only through title+desc+loc+subcats)
+- Subcategory scoring: 4 variants tested (category bonus x3 + weighted enrichment)
+- Models: 3 tested (MiniLM-L-6, MiniLM-L-12, bge-reranker-base)
+- Hybrid scoring: 3 alpha values tested (0.7, 0.8, 0.9)
+- Best configuration highlighted and applied as new default
+- No regressions in evaluate.py or main.py
+
+See `insights/qa-plan.md` for full verification details.

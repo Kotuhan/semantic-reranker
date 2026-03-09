@@ -1,0 +1,359 @@
+{
+  "timestamp": "2026-03-09T19:03:14.571143+00:00",
+  "baseline": "title + desc + loc [BASELINE]",
+  "best": "bge-reranker-base + subcats",
+  "experiments": [
+    {
+      "name": "title only",
+      "group": "Text Composition",
+      "ndcg10": 0.6445,
+      "precision5": 0.68,
+      "delta_ndcg": -0.0462,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.37,
+      "per_query_ndcg": [
+        0.7053,
+        0.6361,
+        0.6312,
+        0.5558,
+        0.6943
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.6,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "title + desc",
+      "group": "Text Composition",
+      "ndcg10": 0.6739,
+      "precision5": 0.68,
+      "delta_ndcg": -0.0168,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.34,
+      "per_query_ndcg": [
+        0.6517,
+        0.6865,
+        0.7631,
+        0.5322,
+        0.7363
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.6,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "title + desc + loc [BASELINE]",
+      "group": "Text Composition",
+      "ndcg10": 0.6908,
+      "precision5": 0.68,
+      "delta_ndcg": 0.0,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.35,
+      "per_query_ndcg": [
+        0.6538,
+        0.7443,
+        0.7671,
+        0.5322,
+        0.7564
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.6,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "title + desc + loc + subcats",
+      "group": "Text Composition",
+      "ndcg10": 0.7403,
+      "precision5": 0.72,
+      "delta_ndcg": 0.0495,
+      "delta_precision": 0.04,
+      "elapsed_seconds": 0.45,
+      "per_query_ndcg": [
+        0.645,
+        0.729,
+        0.8538,
+        0.5632,
+        0.9105
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.8,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "category bonus beta=0.5",
+      "group": "Subcategory Scoring",
+      "ndcg10": 0.6957,
+      "precision5": 0.68,
+      "delta_ndcg": 0.0049,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.19,
+      "per_query_ndcg": [
+        0.6599,
+        0.7586,
+        0.7714,
+        0.5322,
+        0.7564
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.6,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "category bonus beta=1.0",
+      "group": "Subcategory Scoring",
+      "ndcg10": 0.6961,
+      "precision5": 0.72,
+      "delta_ndcg": 0.0053,
+      "delta_precision": 0.04,
+      "elapsed_seconds": 0.17,
+      "per_query_ndcg": [
+        0.6681,
+        0.7567,
+        0.7714,
+        0.5322,
+        0.752
+      ],
+      "per_query_precision": [
+        0.6,
+        0.8,
+        0.6,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "category bonus beta=2.0",
+      "group": "Subcategory Scoring",
+      "ndcg10": 0.6922,
+      "precision5": 0.68,
+      "delta_ndcg": 0.0014,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.17,
+      "per_query_ndcg": [
+        0.6558,
+        0.7567,
+        0.7755,
+        0.5322,
+        0.7407
+      ],
+      "per_query_precision": [
+        0.6,
+        0.8,
+        0.6,
+        0.6,
+        0.8
+      ]
+    },
+    {
+      "name": "weighted subcat enrichment",
+      "group": "Subcategory Scoring",
+      "ndcg10": 0.7158,
+      "precision5": 0.68,
+      "delta_ndcg": 0.025,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.41,
+      "per_query_ndcg": [
+        0.6512,
+        0.7292,
+        0.8605,
+        0.6307,
+        0.7073
+      ],
+      "per_query_precision": [
+        0.4,
+        0.6,
+        0.8,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "MiniLM-L-12-v2",
+      "group": "Models",
+      "ndcg10": 0.7401,
+      "precision5": 0.68,
+      "delta_ndcg": 0.0494,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.34,
+      "per_query_ndcg": [
+        0.6557,
+        0.6717,
+        0.8338,
+        0.7067,
+        0.8329
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.6,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "bge-reranker-base",
+      "group": "Models",
+      "ndcg10": 0.7452,
+      "precision5": 0.72,
+      "delta_ndcg": 0.0545,
+      "delta_precision": 0.04,
+      "elapsed_seconds": 1.16,
+      "per_query_ndcg": [
+        0.5804,
+        0.8555,
+        0.7478,
+        0.8653,
+        0.6772
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "name": "bge-reranker-base + subcats",
+      "group": "Best Combinations",
+      "ndcg10": 0.8283,
+      "precision5": 0.8,
+      "delta_ndcg": 0.1376,
+      "delta_precision": 0.12,
+      "elapsed_seconds": 1.07,
+      "per_query_ndcg": [
+        0.6214,
+        0.8529,
+        0.9103,
+        0.843,
+        0.914
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        1.0,
+        0.8,
+        1.0
+      ]
+    },
+    {
+      "name": "MiniLM-L-12 + subcats",
+      "group": "Best Combinations",
+      "ndcg10": 0.7618,
+      "precision5": 0.8,
+      "delta_ndcg": 0.071,
+      "delta_precision": 0.12,
+      "elapsed_seconds": 0.43,
+      "per_query_ndcg": [
+        0.6592,
+        0.6638,
+        0.8676,
+        0.6921,
+        0.926
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        1.0,
+        0.8,
+        1.0
+      ]
+    },
+    {
+      "name": "hybrid alpha=0.7",
+      "group": "Hybrid Scoring",
+      "ndcg10": 0.5739,
+      "precision5": 0.56,
+      "delta_ndcg": -0.1169,
+      "delta_precision": -0.12,
+      "elapsed_seconds": 0.22,
+      "per_query_ndcg": [
+        0.4479,
+        0.513,
+        0.691,
+        0.5745,
+        0.6428
+      ],
+      "per_query_precision": [
+        0.4,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    {
+      "name": "hybrid alpha=0.8",
+      "group": "Hybrid Scoring",
+      "ndcg10": 0.5972,
+      "precision5": 0.64,
+      "delta_ndcg": -0.0935,
+      "delta_precision": -0.04,
+      "elapsed_seconds": 0.17,
+      "per_query_ndcg": [
+        0.5739,
+        0.5181,
+        0.691,
+        0.533,
+        0.6702
+      ],
+      "per_query_precision": [
+        0.4,
+        0.6,
+        0.6,
+        0.6,
+        1.0
+      ]
+    },
+    {
+      "name": "hybrid alpha=0.9",
+      "group": "Hybrid Scoring",
+      "ndcg10": 0.6419,
+      "precision5": 0.68,
+      "delta_ndcg": -0.0488,
+      "delta_precision": 0.0,
+      "elapsed_seconds": 0.17,
+      "per_query_ndcg": [
+        0.6222,
+        0.609,
+        0.7705,
+        0.5129,
+        0.6951
+      ],
+      "per_query_precision": [
+        0.4,
+        0.8,
+        0.6,
+        0.6,
+        1.0
+      ]
+    }
+  ],
+  "queries": [
+    "vehicle bomb attacks in the Middle East",
+    "homemade explosives from household chemicals",
+    "suicide attacks on government officials",
+    "remote-controlled detonation methods",
+    "smuggling of explosive precursor materials"
+  ]
+}
