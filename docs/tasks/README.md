@@ -26,6 +26,7 @@ docs/tasks/
 
 | ID | Name | Status | Dependencies | Folder |
 |----|------|--------|--------------|--------|
+| task-002 | Benchmark different re-ranking approaches | backlog | task-001 | task-002-reranker-benchmark |
 | <!-- Add tasks here --> |
 
 ---

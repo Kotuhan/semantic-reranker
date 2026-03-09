@@ -34,7 +34,8 @@
       "Bash(pip install sentence-transformers torch --quiet)",
       "Bash(python main.py)",
       "Bash(python evaluate.py)",
-      "Bash(/Users/user/dev/assignment/docs/tasks/task-001-semantic-reranker/insights/workflow-history.md:*)"
+      "Bash(/Users/user/dev/assignment/docs/tasks/task-001-semantic-reranker/insights/workflow-history.md:*)",
+      "Bash(python -c \"import json; data=json.load\\(open\\(''data/reports.json''\\)\\); print\\(json.dumps\\(data[0], indent=2\\)\\)\")"
     ],
     "deny": [
       "Bash(rm -rf *)",

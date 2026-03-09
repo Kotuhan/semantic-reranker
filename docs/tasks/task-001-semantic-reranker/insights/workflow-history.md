@@ -160,3 +160,29 @@ This file tracks all agent runs and workflow transitions for this task.
 - **Files modified**:
   - docs/tasks/README.md
 - **Next stage**: git-commit
+
+---
+
+## 2026-03-09 18:30 - Git Commit
+
+- **Agent**: director
+- **Result**: completed
+- **Summary**: All task files committed as 261134d (27 files, 2015 insertions).
+- **Commit**: 261134d
+- **Next stage**: done
+
+---
+
+## 2026-03-09 18:30 - Task Complete
+
+- **Final Status**: DONE
+- **Files Created**:
+  - apps/semantic-reranker/ (full app: .gitignore, CLAUDE.md, README.md, WRITEUP.md, requirements.txt, main.py, evaluate.py, data/, src/reranker/)
+  - architecture/decisions/adr-0001, adr-0002, adr-0003
+  - docs/tasks/task-001-semantic-reranker/insights/ (qa-plan, arch-update, summary)
+- **Files Modified**:
+  - CLAUDE.md, architecture/CLAUDE.md, architecture/overview.md
+  - docs/tasks/README.md, workflow-history.md
+  - .claude/settings.json
+- **Commit**: 261134d
+- **Patterns Captured**: Python app conventions, cross-encoder patterns, Pydantic models, document text composition with location
