@@ -1,77 +1,106 @@
-# Project Template
+# Semantic Re-Ranker for Intelligence Report Search
 
-Monorepo template with multi-agent Claude Code workflow.
+A semantic re-ranking system that improves keyword search results for intelligence reports using a cross-encoder transformer model. Takes the keyword engine's top-20 results and re-orders them by semantic relevance, returning the top 10.
 
-## What's Included
+**[Live Benchmark Report](https://kotuhan.github.io/semantic-reranker/report.html)**
 
-- **Multi-agent workflow**: 11 specialized agents (Director, PO, TL, Architect, QA, Dev, Researcher, etc.)
-- **46+ TaskMaster commands**: Project management via Claude Code slash commands
-- **8 reusable skills**: Task workflow, research, QA planning, technical design, etc.
-- **Architecture framework**: ADR templates, contract specs, diagram conventions
-- **Knowledge base**: Persistent research repository with staleness tracking
+## How It Works
 
-## Tech Stack
+```
+User Query → Keyword Search (BM25) → Top-20 Candidates → Cross-Encoder Re-Ranker → Top-10 Results
+```
 
-- **Monorepo**: Turborepo + pnpm workspaces
-- **Config**: Shared ESLint, TypeScript, Prettier configs
+The re-ranker uses a **cross-encoder** (`BAAI/bge-reranker-base`) that jointly processes each `[query, document]` pair through a transformer, producing a relevance score. Unlike keyword matching, this captures semantic relationships — e.g., "vehicle bomb" ↔ "VBIED", "homemade explosives" ↔ "TATP".
+
+Each document is represented as `title + description + location + flattened subcategories`, giving the model both narrative content and structured domain terminology.
+
+## Results
+
+| Metric | Semantic Re-Ranker | Keyword Baseline | Improvement |
+|--------|-------------------|------------------|-------------|
+| NDCG@10 | 0.8283 | 0.2196 | **3.8x** |
+| Precision@5 | 0.8000 | — | — |
+| Latency (20 candidates) | ~1.1s on CPU | — | — |
 
 ## Prerequisites
 
-- Node.js 22+
-- pnpm 9+
+- Python 3.10+
+- ~4 GB disk space (model + dependencies)
+- Internet connection for first run only (model download)
 
-## Getting Started
-
-### 1. Install dependencies
-
-```bash
-pnpm install
-```
-
-### 2. Start developing
+## Quick Start
 
 ```bash
-pnpm dev
+cd apps/semantic-reranker
+
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the demo
+python main.py
 ```
 
-## Commands
+> The first run downloads the model (~350 MB) from HuggingFace. Subsequent runs work fully offline.
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Run all apps in dev mode |
-| `pnpm build` | Build all apps |
-| `pnpm lint` | Lint all apps |
-| `pnpm test` | Run all tests |
-| `pnpm format` | Format all files |
-| `pnpm format:check` | Check formatting |
-| `pnpm clean` | Clean all build outputs |
+## Scripts
+
+### `main.py` — Demo
+
+```bash
+python main.py
+```
+
+Re-ranks all 5 test queries and displays top-10 results with relevance scores, original ranks, and timing. Use this to see the re-ranker in action.
+
+### `evaluate.py` — Evaluation
+
+```bash
+python evaluate.py
+```
+
+Measures ranking quality against ground truth (`ideal_rankings.json`). Reports NDCG@10 and Precision@5 per query, with keyword baseline comparison.
+
+### `benchmark.py` — Benchmark
+
+```bash
+python benchmark.py
+```
+
+Runs 15 experiments comparing different models, text compositions, and scoring strategies. Generates `report.html` — an interactive HTML report with per-experiment metrics and deltas. This is how the model and configuration were selected.
 
 ## Project Structure
 
 ```
-├── apps/                # Application packages (add your apps here)
-├── packages/
-│   └── config/          # Shared ESLint, TS configs
-├── architecture/        # ADRs, contracts, diagrams
-├── docs/                # Tasks, workflow docs
-├── knowledgebase/       # Research repository
-├── .claude/             # Multi-agent workflow config
-│   ├── agents/          # 11 agent definitions
-│   ├── commands/        # Slash commands
-│   └── skills/          # Reusable skills
-└── .taskmaster/         # Task Master AI integration
+apps/semantic-reranker/
+├── data/
+│   ├── reports.json            # 30 intelligence reports
+│   ├── keyword_results.json    # 5 queries × 20 keyword search results
+│   └── ideal_rankings.json     # Ground truth rankings (evaluation only)
+├── src/reranker/
+│   ├── reranker.py             # Reranker class — core scoring logic
+│   ├── models.py               # Pydantic data models
+│   ├── metrics.py              # NDCG and Precision computation
+│   └── utils.py                # Data loading helpers
+├── main.py                     # Demo script
+├── evaluate.py                 # Evaluation script
+├── benchmark.py                # Benchmark harness (15 experiments)
+├── report.html                 # Benchmark results (generated by benchmark.py)
+├── requirements.txt            # Python dependencies
+└── WRITEUP.md                  # Detailed technical write-up
 ```
 
-## Multi-Agent Workflow
+## Key Design Decisions
 
-Use `/director` to orchestrate development tasks through the full lifecycle:
+1. **Model choice**: `BAAI/bge-reranker-base` was selected via benchmark over MiniLM-L-6-v2 (+19.9% NDCG) and MiniLM-L-12-v2 (+0.7% NDCG), while staying within the CPU latency budget.
 
-```
-backlog -> arch-context -> PO analysis -> TL design -> arch-review -> implementation -> QA -> context-update -> commit -> done
-```
+2. **Subcategories as text**: Flattening subcategories (Target, Organization, Attack, Explosive, etc.) into the document text improved NDCG by +5–14% across all models. The cross-encoder leverages this structured terminology for matching.
 
-See [docs/workflow.md](docs/workflow.md) for detailed Mermaid diagrams.
+3. **No hybrid scoring**: Blending keyword + semantic scores was tested at multiple alpha values — it degraded results in all cases. The semantic model already captures what keywords measure.
 
-## License
+4. **Batch scoring**: All query-document pairs are scored in a single `model.predict()` call per query for efficiency.
 
-Private - All rights reserved
+See [WRITEUP.md](apps/semantic-reranker/WRITEUP.md) for the full technical write-up including architecture considerations, trade-offs, and benchmark analysis.
