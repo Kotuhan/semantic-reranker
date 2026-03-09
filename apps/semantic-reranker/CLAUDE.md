@@ -62,6 +62,33 @@ apps/semantic-reranker/
 - Use hybrid scoring (keyword+semantic interpolation) -- benchmark proved it degrades results at all alpha values
 - Use category match bonus as additive score modifier -- benchmark showed <1% improvement, not worth the complexity
 
+## Docker
+
+The app can be run via Docker without any local Python/venv setup.
+
+```bash
+# From repo root:
+docker compose run --rm reranker                        # Default: runs main.py + evaluate.py
+docker compose run --rm reranker python benchmark.py    # Override: run specific script
+docker compose build reranker                           # Rebuild image
+```
+
+### Docker Conventions
+
+- **Dockerfile at repo root** (not in app directory) -- build context is `.` so it can COPY from `apps/semantic-reranker/`
+- **CPU-only PyTorch**: `--index-url https://download.pytorch.org/whl/cpu` keeps image ~1.2GB instead of ~4GB with CUDA
+- **Layer caching**: `requirements.txt` copied and installed before source code, so code changes don't re-download deps
+- **entrypoint.sh with `exec "$@"` override**: no args = default demo+eval sequence; with args = run that command instead
+- **No model cache volume**: model downloads on each fresh container run (~350MB). Acceptable for dev/demo; add a named volume if this becomes a bottleneck
+- **WORKDIR /app with flat copy**: app contents copied flat into `/app` so `sys.path.insert(0, "src")` and `data/` relative paths work unchanged
+- `.dockerignore` at repo root excludes node_modules, docs, architecture, .git, venv, etc. to keep build context small
+
+### DO NOT (Docker)
+
+- Move Dockerfile into `apps/semantic-reranker/` -- it needs repo root as build context
+- Use GPU torch in the Docker image unless GPU support is actually needed -- it triples image size
+- Mount host `venv/` or `__pycache__/` into the container
+
 ## Known Limitations
 
 - **General-domain model**: `bge-reranker-base` is trained on general web/search data, not intelligence domain. Domain fine-tuning would further improve results.

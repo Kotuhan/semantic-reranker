@@ -109,11 +109,24 @@
             "testStrategy": "Full system integration test from clean state, performance benchmarking across all queries, validate turbo.json integration works correctly, test monorepo build/lint/test commands include the new app, verify data access and processing accuracy matches expected results"
           }
         ]
+      },
+      {
+        "id": 2,
+        "title": "Dockerize Semantic Re-Ranker Application",
+        "description": "Create a complete Docker containerization solution for the semantic-reranker app including Dockerfile, docker-compose.yml, and documentation for isolated container execution.",
+        "details": "**Docker Infrastructure:**\n\nCreate `apps/semantic-reranker/Dockerfile`:\n- Use `python:3.10-slim` base image for minimal footprint\n- Set working directory to `/app`\n- Copy `requirements.txt` and install dependencies first (layer caching optimization)\n- Copy source code (`src/`, `main.py`, `evaluate.py`, `benchmark.py`)\n- Create volume mount point `/app/data` for data files\n- Create volume mount point `/app/.cache` for HuggingFace model cache\n- Set environment variable `TRANSFORMERS_CACHE=/app/.cache`\n- Default command: `python main.py`\n\nCreate `apps/semantic-reranker/docker-compose.yml`:\n- Define `semantic-reranker` service\n- Build from local Dockerfile\n- Mount `./data:/app/data:ro` (read-only data volume)\n- Mount named volume `model-cache:/app/.cache` for persistent model storage\n- Expose container for potential future API integration\n- Environment variables for Python buffering and cache location\n\n**Container Optimizations:**\n- Multi-stage build to reduce image size\n- Use `.dockerignore` to exclude `venv/`, `__pycache__/`, `.git/`\n- Cache HuggingFace models in persistent volume to avoid re-downloading\n- Handle model download gracefully on first run with proper error handling\n\n**Documentation Updates:**\n- Add Docker section to `README.md` with build/run instructions\n- Document volume mounting for data files and model cache\n- Include troubleshooting for model download issues\n- Add docker-compose commands for different entry points (`main.py`, `evaluate.py`, `benchmark.py`)\n\n**Entry Point Scripts:**\n- Create `docker-entrypoint.sh` to handle different commands\n- Support running `main.py`, `evaluate.py`, or `benchmark.py` via environment variable\n- Ensure proper error handling and logging\n\n**Key Features:**\n- Persistent model caching (BAAI/bge-reranker-base ~350MB downloads once)\n- Data volume mounting for flexible input/output\n- Isolated execution environment\n- Support for all three main scripts\n- Optimized for CI/CD pipeline integration",
+        "testStrategy": "**Container Build Testing:**\n- `docker build -t semantic-reranker .` succeeds without errors\n- Verify image size is reasonable (~1-2GB including Python + ML dependencies)\n- Check that `.dockerignore` excludes unnecessary files (`venv/`, `__pycache__/`)\n\n**Functionality Testing:**\n- `docker-compose up` runs `main.py` successfully and displays rich tables\n- `docker-compose run semantic-reranker python evaluate.py` executes evaluation script\n- `docker-compose run semantic-reranker python benchmark.py` runs benchmark successfully\n- Verify model download works on first run (internet connection required)\n- Test model persistence: second run should use cached model (faster startup)\n\n**Volume Mount Testing:**\n- Test data volume: modify `data/reports.json`, verify container sees changes\n- Test model cache persistence: remove and recreate container, verify model isn't re-downloaded\n- Verify read-only data mount prevents container from modifying input files\n\n**Integration Testing:**\n- Run full evaluation workflow: `docker-compose run semantic-reranker python evaluate.py`\n- Verify NDCG@10 scores match expected values from benchmark results\n- Test all entry points work correctly in containerized environment\n- Validate error handling for missing data files or model download failures\n\n**Documentation Verification:**\n- Follow README Docker instructions from scratch on clean system\n- Verify all documented commands work as expected\n- Test troubleshooting scenarios (network issues, volume mount problems)",
+        "status": "pending",
+        "dependencies": [
+          1
+        ],
+        "priority": "medium",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2026-03-09T15:48:00.863Z",
-      "updated": "2026-03-09T15:48:00.863Z",
+      "updated": "2026-03-09T19:21:14.135Z",
       "description": "Tasks for master context"
     }
   }

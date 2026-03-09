@@ -34,7 +34,7 @@ Living architecture reference for the project. This directory is the primary kno
 
 - Format: `adr-NNNN-slug.md` (4-digit zero-padded)
 - Start: 0001
-- Next available: 0004
+- Next available: 0005
 - Sequential only. Never reuse numbers, even for rejected/superseded ADRs.
 - Slug: lowercase, hyphens, verb-noun structure preferred (e.g., `use-madr-format`, `adopt-stripe-billing`)
 

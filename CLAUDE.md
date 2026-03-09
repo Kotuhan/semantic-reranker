@@ -26,6 +26,9 @@ docs/                # Documentation, tasks (see docs/CLAUDE.md)
 knowledgebase/       # Central research repository (managed by Researcher agent)
 .claude/             # Claude Code configuration
 .taskmaster/         # Task Master AI integration
+Dockerfile           # Docker build for semantic-reranker (context: repo root)
+docker-compose.yml   # Compose service definitions
+.dockerignore        # Docker build exclusions
 ```
 
 ## Module Documentation
@@ -46,6 +49,10 @@ pnpm build        # Build all apps
 pnpm lint         # Lint all apps
 pnpm test         # Run all tests
 pnpm format       # Format all files
+
+# Docker (from repo root)
+docker compose run --rm reranker                      # Run semantic-reranker (demo + eval)
+docker compose run --rm reranker python benchmark.py  # Run specific script
 ```
 
 ## Verification Requirements
@@ -75,6 +82,13 @@ Before completing any implementation:
 - Typed function signatures on all functions
 - Error handling: descriptive error messages, graceful degradation for partial failures (e.g., skip invalid IDs with warning)
 - Scripts use `sys.path.insert(0, "src")` and relative data paths -- must be run from the app directory
+
+### Docker Containerization
+
+- Dockerfile lives at **repo root** (not inside app directory) -- build context needs access to `apps/` subdirectories
+- CPU-only PyTorch via `--index-url https://download.pytorch.org/whl/cpu` to keep images small
+- `entrypoint.sh` with `exec "$@"` pattern: default behavior when no args, command override when args provided
+- See [apps/semantic-reranker/CLAUDE.md](apps/semantic-reranker/CLAUDE.md) for full Docker details
 
 ## Agent Rules
 

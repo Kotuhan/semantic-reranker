@@ -1,45 +1,103 @@
-# Technical Write-Up: Semantic Re-Ranker
+# Semantic Re-Ranker — Approach & Findings
 
-## Approach
+## Where I Started
 
-I use a **cross-encoder** architecture (`BAAI/bge-reranker-base`) to re-rank the keyword engine's top-20 results. Unlike bi-encoders that encode query and document independently, a cross-encoder jointly processes the `[query, document]` pair through a single transformer pass, producing a relevance score. This joint attention mechanism allows the model to capture fine-grained semantic relationships — critically, it can bridge vocabulary gaps like "vehicle bomb" ↔ "VBIED" and "homemade explosives" ↔ "TATP".
+When I first read the assignment, I didn't jump straight to code. The problem statement was clear — vocabulary mismatch between queries and intelligence reports — but I had several open questions that would fundamentally change the architecture before writing a single line.
 
-Document text is composed as `title + description + location (country, city) + flattened subcategories`. Title and description provide semantic content, location helps geo-scoped queries, and subcategories (Target, Organization, Attack, Component, Explosive, Operating) provide structured domain terminology that the model can match against query terms.
+So I asked.
 
-**Why this model:** I benchmarked three cross-encoders (MiniLM-L-6, MiniLM-L-12, bge-reranker-base) across multiple text compositions. bge-reranker-base delivered the best NDCG@10 (0.83 vs 0.69 for MiniLM-L-6) while staying within the CPU latency budget (~1.1s for 20 candidates). It runs fully offline after initial download.
+The answers shaped everything:
 
-## Architecture
+- **Users are intelligence analysts and EOD technicians** — non-technical, freeform search, tolerant of 2–3 second latency
+- **~12 concurrent users, hundreds of queries per day** — low load, no need for complex scaling
+- **CPU only in production** — eliminates large models and GPU-dependent approaches
+- **No external API budget** — Cohere Rerank, OpenAI — off the table
+- **Offline is a hard production requirement** — not just an exercise constraint
+
+This ruled out three of the four standard approaches immediately. LLM-based reranking (Cohere, GPT) — gone. Large cross-encoders — gone. Hybrid cloud/local fallback — unnecessary complexity.
+
+What remained: a lightweight cross-encoder, fully self-hosted, CPU-friendly, offline by design.
+
+---
+
+## The Architecture Decision
+
+Before choosing a model, I thought about where this sits in the pipeline:
 
 ```
-User Query → Elasticsearch (BM25) → Top-20 Candidates → Cross-Encoder Re-Ranker → Top-10 Results
+User query → Elasticsearch/BM25 → top-20 candidates → re-ranker → top-10
 ```
 
-**Production integration:** For Codex's scale (~12 concurrent users, hundreds of daily queries), I recommend embedding the `Reranker` class directly into the search service as a module — no separate microservice needed. This avoids HTTP overhead and infrastructure complexity. If the re-ranker becomes shared across multiple products, extracting it into a microservice with a REST API would then make sense.
+The re-ranker doesn't need to search — that's already done. It only needs to re-order 20 documents. This is important because cross-encoders are too slow to run against an entire corpus, but 20 documents at 2–3 seconds is perfectly acceptable.
 
-## Trade-offs
+I also considered whether this should be a microservice or a module inside the existing search service. Given the load (~12 concurrent users), a microservice adds latency and operational overhead with no real benefit. A module is the pragmatic choice — with the caveat that a microservice makes sense if the re-ranker eventually becomes a shared component across multiple products.
 
-- **Latency vs. quality:** Cross-encoders are slower than bi-encoders per pair (~0.1s for 20 pairs vs. ~0.01s), but far more accurate for re-ranking. With only 20 candidates, this is acceptable. bge-reranker-base is ~3x slower than MiniLM-L-6 but the quality gain (+19.9% NDCG) justifies it.
-- **CPU-only:** No GPU required. bge-reranker-base processes 20 pairs in ~1.1s on modern CPUs, well within the 2-3s budget.
-- **Cold start:** First run downloads the model (~350MB). Subsequent runs use the local HuggingFace cache. Model loading takes ~2s, amortized across all queries in a session.
-- **General vs. domain-specific:** The model is trained on general search data, not intelligence reports. Including subcategories as text partially bridges this gap. Evaluation shows NDCG@10 of 0.83 (3.8x over keyword baseline).
+The core abstraction is simple: a `Reranker` class with a `rerank(query, candidates)` method. Clean, testable, importable by both `evaluate.py` and any future HTTP wrapper.
 
-## Benchmark: Theories Tested
+---
 
-I built a benchmark harness (`benchmark.py`) to systematically compare approaches. Here are the theories I tested and what I found:
+## The Benchmarking Approach
 
-1. **"More text = better understanding"** — Does adding location and subcategories to document text help the model? **Yes.** Adding location gave a small boost for geo-queries. Adding flattened subcategories (e.g., "Target: Military. Attack: Vehicle-Borne IED. Explosive: Ammonium Nitrate") gave a significant +5-14% NDCG lift across all models — the structured domain terminology gives the model vocabulary it wouldn't otherwise see.
+I didn't want to just pick a model and submit. I wanted to understand *why* things work — and what doesn't.
 
-2. **"A bigger model scores better"** — Does MiniLM-L-12 (12 layers) beat MiniLM-L-6 (6 layers)? And does bge-reranker-base beat both? **Partially.** L-12 offered marginal improvement over L-6. bge-reranker-base was the clear winner — a different architecture and training approach mattered more than just adding layers.
+I structured 15 experiments across 5 hypothesis categories:
 
-3. **"Hybrid scoring combines the best of both worlds"** — Does blending keyword scores with semantic scores (`α * semantic + (1-α) * keyword`) improve results? **No.** Hybrid scoring degraded results at every alpha value tested (0.7, 0.8, 0.9). The keyword scores added noise rather than signal — the semantic model already captures what keywords measure, plus more.
+**Text Composition** — How much context should I feed the model?
+**Model Selection** — Does architecture matter more than size?
+**Subcategory Scoring** — Can structured metadata boost relevance signals?
+**Hybrid Scoring** — Does blending keyword + semantic scores help?
+**Best Combinations** — What happens when I combine winning components?
 
-4. **"Structured metadata matching helps"** — Does adding a category-match bonus (counting subcategory overlaps between query terms and report tags) improve scoring? **Barely.** Less than 1% improvement — not worth the added complexity. The cross-encoder already picks up on these associations through the flattened text.
+Each experiment had a theory, a prediction, and a verdict.
 
-5. **"Repeating important fields amplifies their signal"** — Does duplicating high-value subcategory axes (Explosive, Attack) in the document text boost relevance? **No meaningful effect.** The cross-encoder's attention mechanism doesn't benefit from repetition the way a bag-of-words model would.
+---
+
+## What I Found
+
+### The biggest win: subcategories as text
+
+Adding flattened subcategory tags (Target, Organization, Attack, Component, Explosive) to the document text gave a consistent **+5–14% NDCG lift** across all models. The taxonomy that the reports already had was essentially a free semantic signal — I just needed to include it in the input text.
+
+### Architecture beats parameter count
+
+`bge-reranker-base` outperformed `MiniLM-L-12` despite similar size. Cross-encoder architecture designed specifically for re-ranking matters more than just having more layers. This pushed me toward BGE as the primary model.
+
+### The counterintuitive finding: hybrid scoring made things worse
+
+I hypothesized that blending the keyword engine's BM25 scores with semantic scores would combine the best of both worlds. It didn't. At every alpha value tested (0.7, 0.8, 0.9), hybrid scoring degraded results — sometimes significantly.
+
+The reason: the keyword scores weren't adding signal, they were adding noise. The cross-encoder already captures lexical overlap as part of its attention mechanism. Reintroducing raw BM25 scores pulled the ranking back toward keyword matching — exactly the problem we were trying to solve.
+
+**Verdict: rejected.**
+
+### The weak spot: geographic queries
+
+Q1 ("vehicle bomb attacks in the Middle East") was the hardest query across every configuration, including the best one (NDCG: 0.62 vs. 0.91 for other queries). Geographic specificity in freeform queries is a known limitation — the model has no special handling for location disambiguation. This would be the first thing I'd address with more time.
+
+---
+
+## Final Configuration
+
+**Model:** `BAAI/bge-reranker-base`
+**Document text:** title + description + location + flattened subcategories
+**Latency:** ~1.07 seconds for 20 documents on CPU
+**NDCG@10:** 0.8283 (+19.9% over baseline)
+**Precision@5:** 0.80
+
+---
 
 ## What I'd Do With More Time
 
-1. **Query expansion** — Add a synonym layer for intelligence terminology (VBIED → vehicle bomb, PBIED → person-borne IED, TATP → homemade explosive). This addresses the recall limitation: the re-ranker can only reorder what the keyword engine returns.
-2. **Domain fine-tuning** — Fine-tune MiniLM on intelligence report pairs to improve understanding of specialist terminology. Even 1,000 labeled pairs would likely boost NDCG@10 significantly.
-3. **Dense retrieval first stage** — Replace or augment Elasticsearch with a bi-encoder over the full corpus to improve recall at the retrieval stage.
-4. **Expand candidate pool** — Request top-50 from the keyword engine instead of top-20 to give the re-ranker more candidates to promote.
+**Query expansion to fix recall failures.** The re-ranker can only work with what the keyword engine returns. If a relevant document doesn't appear in the top-20 at all, re-ranking can't surface it. The right fix is upstream: expand queries using intelligence domain synonyms ("vehicle bomb" → "VBIED, car-borne IED, CBIED") or LLM-based query rewriting. This addresses the root cause rather than optimizing the re-ranking step.
+
+**Domain fine-tuning.** GPU is available for pretraining. Fine-tuning `bge-reranker-base` on intelligence report pairs with human relevance judgments would likely push NDCG significantly beyond 0.83 — the model currently has no exposure to this domain's specific terminology.
+
+**Expand the candidate pool.** Requesting top-50 instead of top-20 from Elasticsearch costs little at retrieval time but meaningfully improves recall. More candidates means fewer relevant documents missed before re-ranking even begins.
+
+---
+
+## On the Benchmark Report
+
+The full results — all 15 experiments, per-query heatmap, quality vs. latency scatter, and theory verdicts — are available at:
+
+**[https://kotuhan.github.io/semantic-reranker/report.html](https://kotuhan.github.io/semantic-reranker/report.html)**

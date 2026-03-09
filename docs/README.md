@@ -8,7 +8,7 @@ See [workflow.md](workflow.md) for visual Mermaid diagrams of the task workflow.
 
 | Task | Date | Summary |
 |------|------|---------|
-<!-- Completed tasks logged here by PO Summary stage -->
+| task-003 | 2026-03-09 | Dockerize semantic re-ranker for isolated execution |
 
 ## Task Directory
 

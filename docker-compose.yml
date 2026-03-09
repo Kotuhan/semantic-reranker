@@ -1,0 +1,5 @@
+services:
+  reranker:
+    build:
+      context: .
+      dockerfile: Dockerfile

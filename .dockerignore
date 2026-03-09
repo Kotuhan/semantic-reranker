@@ -1,0 +1,38 @@
+# Version control
+.git/
+.gitignore
+
+# Node / Turborepo
+node_modules/
+.turbo/
+packages/
+pnpm-lock.yaml
+pnpm-workspace.yaml
+turbo.json
+package.json
+tsconfig.json
+
+# Documentation and config
+architecture/
+docs/
+knowledgebase/
+.claude/
+.taskmaster/
+
+# Python artifacts
+venv/
+__pycache__/
+*.pyc
+.cache/
+
+# App-specific artifacts to exclude
+apps/semantic-reranker/venv/
+apps/semantic-reranker/__pycache__/
+apps/semantic-reranker/.cache/
+apps/semantic-reranker/report.html
+apps/semantic-reranker/benchmark_results.json
+
+# Root-level files not needed
+*.md
+!apps/semantic-reranker/**/*.md
+report.html

@@ -22,6 +22,32 @@ pip install -r requirements.txt
 
 > **Note:** The first run downloads the cross-encoder model (~80MB) from HuggingFace. Subsequent runs work fully offline using the cached model at `~/.cache/huggingface/`.
 
+## Docker (Recommended)
+
+Run everything with a single command -- no Python setup required:
+
+```bash
+# From the repository root:
+docker-compose up --build
+```
+
+This builds the image, installs dependencies, and runs both `main.py` (demo) and `evaluate.py` (metrics).
+
+### Run individual scripts
+
+```bash
+docker-compose run reranker python main.py            # Demo only
+docker-compose run reranker python evaluate.py         # Evaluation only
+docker-compose run reranker python benchmark.py        # Full benchmark (~10 min)
+docker-compose run reranker python generate_report.py  # Generate HTML report
+```
+
+### Notes
+
+- Each run downloads the cross-encoder model (~80MB) from HuggingFace. Requires internet.
+- **Image size** is ~1.7GB (CPU-only PyTorch, no CUDA).
+- The `Dockerfile` and `docker-compose.yml` are at the **repository root**, not inside `apps/semantic-reranker/`.
+
 ## Usage
 
 ### Demo — Re-rank all queries

@@ -7,6 +7,7 @@
 | Component | Location | Type | Tech Stack | Status |
 |-----------|----------|------|------------|--------|
 | Semantic Re-Ranker | `apps/semantic-reranker/` | Standalone Python app | Python 3.10+, sentence-transformers, Pydantic, rich | Implemented (task-001) |
+| Semantic Re-Ranker (Docker) | `Dockerfile`, `docker-compose.yml` | Docker container | Python 3.12-slim, CPU-only PyTorch | Implemented (task-003) |
 
 ### Semantic Re-Ranker
 
@@ -18,12 +19,20 @@ A standalone Python application that re-ranks keyword search results using a cro
 - NDCG@10: 0.8283 (3.8x improvement over keyword baseline)
 - Self-contained with own virtualenv and requirements.txt
 
+**Docker deployment (task-003, ADR-0004):**
+- `docker-compose up` runs demo + evaluation with zero local setup
+- Dockerfile at repo root, builds from `apps/semantic-reranker/` via selective COPY
+- Python 3.12-slim base, CPU-only PyTorch (~1.7GB image)
+- Entrypoint runs `main.py` + `evaluate.py` by default; supports CMD override for `benchmark.py` or other scripts
+- No volumes, ports, or networks -- remains a CLI tool, not a service
+
 ## Tech Stack
 
 | Layer | Technology | Notes |
 |-------|-----------|-------|
 | Monorepo | Turborepo + pnpm workspaces | Node.js/TypeScript projects |
 | ML/Re-ranking | Python 3.10+, sentence-transformers, PyTorch | Standalone, not in monorepo toolchain |
+| Containerization | Docker, Docker Compose | Semantic re-ranker only (ADR-0004) |
 | Data validation | Pydantic v2 | Used in semantic-reranker |
 | Console output | rich | Used in semantic-reranker |
 
@@ -36,10 +45,13 @@ A standalone Python application that re-ranks keyword search results using a cro
 | evaluate.py | `apps/semantic-reranker/evaluate.py` | NDCG@10 and Precision@5 evaluation against ground truth | reranker package, ideal_rankings.json | -- |
 | benchmark.py | `apps/semantic-reranker/benchmark.py` | Compare re-ranking approaches (15 experiments) | reranker package, ideal_rankings.json | -- |
 | metrics.py | `apps/semantic-reranker/src/reranker/metrics.py` | Shared NDCG and Precision computation | -- | -- |
+| Dockerfile | `Dockerfile` (repo root) | Docker image for semantic-reranker (Python 3.12-slim, CPU-only torch) | apps/semantic-reranker/ | ADR-0004 |
+| docker-compose.yml | `docker-compose.yml` (repo root) | Compose service definition for reranker | Dockerfile | ADR-0004 |
+| entrypoint.sh | `apps/semantic-reranker/entrypoint.sh` | Container entrypoint: runs main.py + evaluate.py, supports CMD override | main.py, evaluate.py | ADR-0004 |
 
 ## Security Architecture
 
-No authentication, authorization, or network services. The semantic re-ranker is a local CLI tool processing static JSON data files.
+No authentication, authorization, or network services. The semantic re-ranker is a local CLI tool processing static JSON data files. The Docker container exposes no ports and defines no network services -- it runs the CLI tool in an isolated environment and exits.
 
 ## Known Limitations
 
