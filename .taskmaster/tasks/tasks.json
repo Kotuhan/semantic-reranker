@@ -1,5 +1,120 @@
 {
   "master": {
-    "tasks": []
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Implement Semantic Re-Ranker for Intelligence Reports",
+        "description": "Build a complete semantic re-ranker application that takes keyword search results and re-orders them using cross-encoder transformer models to improve semantic relevance matching",
+        "details": "Create a new app in the monorepo structure (`apps/semantic-reranker/`) that implements:\n\n**Core Implementation:**\n- `Reranker` class using `cross-encoder/ms-marco-MiniLM-L-6-v2` model for CPU-only semantic re-ranking\n- Method: `rerank(query: str, candidates: list[str]) -> list[str]` that accepts 20 candidates and returns top-10 re-ranked results\n- Data loading utilities for reports.json and keyword_results.json\n- Pydantic models for type safety (Query, Report, RankingResult)\n\n**Project Structure:**\n```\napps/semantic-reranker/\n├── package.json (with transformers, torch, pydantic, rich dependencies)\n├── src/\n│   ├── __init__.py\n│   ├── reranker.py          # Core Reranker class\n│   ├── models.py            # Pydantic data models\n│   └── utils.py             # Data loading helpers\n├── data/                    # Symlink to docs/product/assignment-semantic-reranker/data/\n├── main.py                  # Demo entry point\n├── evaluate.py              # Evaluation script with NDCG@10 and Precision@5\n├── requirements.txt         # Python dependencies\n├── WRITEUP.md              # Technical approach documentation\n└── README.md               # Setup and usage instructions\n```\n\n**Key Technical Specifications:**\n- Use cross-encoder architecture for query-document pair scoring (not bi-encoder)\n- Process all 20 candidates through the model to get relevance scores\n- Return top-10 results sorted by semantic relevance score\n- Implement offline-only solution (no API calls)\n- Target 2-3 second latency for CPU-only processing\n- Handle vocabulary mismatch: 'vehicle bomb'↔'VBIED', 'homemade explosives'↔'TATP'\n\n**Evaluation System:**\n- NDCG@10 calculation with graded relevance (position 1=score 10, position 2=score 9, etc.)\n- Precision@5 calculation for top-5 accuracy\n- Rich-formatted console table showing per-query and average scores\n- Process all 5 queries from keyword_results.json against ideal_rankings.json\n\n**Integration Points:**\n- Follow monorepo conventions (package.json, turbo.json integration)\n- Add build/lint/test scripts compatible with existing pnpm workspace\n- Ensure data/ directory correctly references the existing assignment data\n- Python virtual environment setup within the app directory\n\n**Error Handling:**\n- Graceful model loading failures\n- Invalid input validation\n- Missing report ID handling\n- Batch processing error recovery",
+        "testStrategy": "**Functional Testing:**\n- Unit tests for Reranker.rerank() method with sample queries and candidates\n- Data loading validation tests for reports.json and keyword_results.json parsing\n- Model loading and inference pipeline tests\n\n**Performance Testing:**\n- Latency benchmarks: ensure <3 seconds for 20 candidate re-ranking\n- Memory usage profiling during model inference\n- Batch processing stress testing\n\n**Evaluation Validation:**\n- Verify NDCG@10 and Precision@5 calculations against manual computation\n- Cross-validation with ideal_rankings.json for all 5 test queries\n- Semantic relevance spot-checking: ensure 'VBIED' ranks higher for 'vehicle bomb' queries\n\n**Integration Testing:**\n- End-to-end pipeline from query → keyword results → semantic re-ranking → top-10 output\n- Verify main.py demo workflow executes successfully\n- Validate evaluate.py produces expected console output format\n- Test requirements.txt installation and model download process\n\n**Acceptance Criteria:**\n- Achieves baseline NDCG@10 > 0.75 across test queries\n- Handles all vocabulary mismatch cases in assignment data\n- Runs completely offline without external API dependencies\n- Integrates properly with monorepo build system (pnpm build, pnpm lint, pnpm test)",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Project scaffolding and data setup",
+            "description": "Set up the project structure within the monorepo and configure data access for the semantic re-ranker app",
+            "dependencies": [],
+            "details": "Create apps/semantic-reranker/ directory structure with package.json following monorepo conventions. Set up Python virtual environment, requirements.txt with transformers, torch, pydantic, rich dependencies. Create symlink from apps/semantic-reranker/data/ to docs/product/assignment-semantic-reranker/data/ to access reports.json, keyword_results.json, and ideal_rankings.json. Initialize directory structure: src/, __init__.py files, and basic configuration files.",
+            "status": "pending",
+            "testStrategy": "Verify directory structure matches specification, validate symlink works correctly, confirm package.json integrates with turbo.json, test virtual environment activation and dependency installation"
+          },
+          {
+            "id": 2,
+            "title": "Implement Pydantic data models",
+            "description": "Create type-safe Pydantic models for Query, Report, and RankingResult to ensure data validation and structure",
+            "dependencies": [
+              1
+            ],
+            "details": "Create src/models.py with Pydantic models: Query (query: str, description: str, results: list), Report (id: str, title: str, description: str, type: str, country: str, city: str, event_date: str, subcategories: dict), RankingResult (rank: int, report_id: str, score: float, rationale: str optional). Models should match the structure of the JSON data files and provide validation for the reranker pipeline.",
+            "status": "pending",
+            "testStrategy": "Unit tests validating model instantiation with sample data from reports.json and keyword_results.json, test field validation and type checking, verify error handling for malformed data"
+          },
+          {
+            "id": 3,
+            "title": "Implement data loading utilities",
+            "description": "Create utility functions to load and parse the JSON data files into Pydantic models",
+            "dependencies": [
+              2
+            ],
+            "details": "Create src/utils.py with functions: load_reports() to parse reports.json into Report objects, load_queries() to parse keyword_results.json into Query objects, load_ideal_rankings() to parse ideal_rankings.json for evaluation. Include error handling for missing files, malformed JSON, and validation failures. Functions should return typed objects and handle the symlinked data directory path correctly.",
+            "status": "pending",
+            "testStrategy": "Test loading all three JSON files successfully, validate returned objects match Pydantic models, test error handling for missing/corrupted files, verify correct handling of symlinked data directory"
+          },
+          {
+            "id": 4,
+            "title": "Implement core Reranker class",
+            "description": "Create the main Reranker class with cross-encoder model and rerank method for semantic scoring",
+            "dependencies": [
+              3
+            ],
+            "details": "Create src/reranker.py with Reranker class using cross-encoder/ms-marco-MiniLM-L-6-v2 model. Implement rerank(query: str, candidates: list[str]) -> list[str] method that loads the cross-encoder model, processes query-document pairs to get relevance scores, and returns top-10 candidates sorted by semantic relevance. Include model caching for performance, error handling for model loading failures, and CPU-only inference configuration. Target 2-3 second latency for 20 candidates.",
+            "status": "pending",
+            "testStrategy": "Unit tests with sample queries and candidate lists, performance benchmarks to ensure <3 second latency, test model loading and caching, validate output format and ranking logic, test with vocabulary mismatch examples like 'vehicle bomb'/'VBIED'"
+          },
+          {
+            "id": 5,
+            "title": "Implement main.py demo entry point",
+            "description": "Create the main demonstration script that showcases the reranker functionality with sample queries",
+            "dependencies": [
+              4
+            ],
+            "details": "Create main.py that loads data using utilities, initializes Reranker class, processes sample queries from keyword_results.json, and displays results using rich formatting. Show before/after rankings with keyword scores vs semantic scores. Include command-line interface for running specific queries or all queries. Display processing time and top-10 results with report titles and relevance scores.",
+            "status": "pending",
+            "testStrategy": "Integration test running main.py successfully, verify output formatting and readability, test with all 5 queries from keyword_results.json, validate performance timing display, test command-line argument handling"
+          },
+          {
+            "id": 6,
+            "title": "Implement evaluate.py with NDCG and Precision metrics",
+            "description": "Create evaluation script that calculates NDCG@10 and Precision@5 metrics against ideal rankings",
+            "dependencies": [
+              4
+            ],
+            "details": "Create evaluate.py that processes all queries through the reranker, compares results against ideal_rankings.json, and calculates NDCG@10 (with graded relevance: position 1=score 10, position 2=score 9, etc.) and Precision@5 for top-5 accuracy. Display results in rich-formatted console table showing per-query metrics and overall averages. Include detailed scoring rationale and improvement analysis comparing keyword vs semantic ranking performance.",
+            "status": "pending",
+            "testStrategy": "Verify NDCG@10 calculation accuracy with known test cases, validate Precision@5 computation, test evaluation against all 5 queries, confirm rich table formatting displays correctly, test performance improvement metrics calculation"
+          },
+          {
+            "id": 7,
+            "title": "Create technical documentation (WRITEUP.md)",
+            "description": "Document the technical approach, architecture decisions, and implementation details",
+            "dependencies": [
+              6
+            ],
+            "details": "Create WRITEUP.md documenting: cross-encoder vs bi-encoder architecture choice, model selection rationale (ms-marco-MiniLM-L-6-v2), semantic scoring approach, handling of vocabulary mismatches, performance optimizations for CPU inference, evaluation methodology, and results analysis. Include technical diagrams, code examples, and comparison of keyword vs semantic ranking effectiveness with specific examples from the dataset.",
+            "status": "pending",
+            "testStrategy": "Review technical accuracy of content, verify code examples work correctly, validate architectural explanations against implementation, ensure performance claims match actual benchmarks"
+          },
+          {
+            "id": 8,
+            "title": "Create user documentation (README.md)",
+            "description": "Write comprehensive setup and usage instructions for the semantic re-ranker application",
+            "dependencies": [
+              7
+            ],
+            "details": "Create README.md with: project overview, prerequisites (Python version, dependencies), installation steps (virtual environment setup, dependency installation), usage examples (running main.py and evaluate.py), data requirements and structure, expected output format, troubleshooting common issues, and integration with monorepo build system. Include command examples and expected runtime for typical operations.",
+            "status": "pending",
+            "testStrategy": "Follow README instructions on clean system to verify completeness, test all command examples work as documented, validate troubleshooting steps, ensure setup process integrates with monorepo conventions"
+          },
+          {
+            "id": 9,
+            "title": "End-to-end verification and monorepo integration",
+            "description": "Perform comprehensive testing and ensure proper integration with the monorepo build system",
+            "dependencies": [
+              8
+            ],
+            "details": "Run complete end-to-end testing: execute main.py with all queries, run evaluate.py and verify metrics calculation, test data loading from all JSON files, verify performance meets <3 second latency requirement, ensure package.json scripts work with turbo build system (pnpm build, pnpm lint, pnpm test), validate symlink data access works correctly, and confirm the app follows monorepo conventions and can be built/tested via root-level commands.",
+            "status": "pending",
+            "testStrategy": "Full system integration test from clean state, performance benchmarking across all queries, validate turbo.json integration works correctly, test monorepo build/lint/test commands include the new app, verify data access and processing accuracy matches expected results"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2026-03-09T15:48:00.863Z",
+      "updated": "2026-03-09T15:48:00.863Z",
+      "description": "Tasks for master context"
+    }
   }
 }
