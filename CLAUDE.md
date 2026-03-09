@@ -13,11 +13,13 @@ User writes in Ukrainian, Claude responds in English.
 
 <!-- List your technology choices -->
 - **Monorepo**: Turborepo + pnpm workspaces
+- **Python apps**: Standalone venv + pip (not managed by pnpm/turborepo)
 
 ## Project Structure
 
 ```
-apps/                # Application packages (add your apps here)
+apps/                # Application packages
+  semantic-reranker/ # Python cross-encoder re-ranker (standalone, own venv)
 packages/config/     # Shared ESLint, TS configs
 architecture/        # Architecture docs (ADRs, contracts, diagrams, roadmap, runbooks)
 docs/                # Documentation, tasks (see docs/CLAUDE.md)
@@ -34,6 +36,7 @@ knowledgebase/       # Central research repository (managed by Researcher agent)
 | `docs/`          | [docs/CLAUDE.md](docs/CLAUDE.md)                     | Tasks, workflow docs                     |
 | `architecture/`  | [architecture/CLAUDE.md](architecture/CLAUDE.md)     | ADRs, contracts, diagrams, roadmap       |
 | `.claude/`       | [.claude/CLAUDE.md](.claude/CLAUDE.md)               | Agent, command, skill definitions        |
+| `apps/semantic-reranker/` | [apps/semantic-reranker/CLAUDE.md](apps/semantic-reranker/CLAUDE.md) | Python cross-encoder re-ranker (standalone) |
 
 ## Commands
 
@@ -64,8 +67,14 @@ Before completing any implementation:
 
 ## Established Patterns
 
-<!-- Add project-specific patterns here as they emerge from development -->
-<!-- The context-updater agent will populate this section as you build -->
+### Python Apps in the Monorepo
+
+- Python apps live under `apps/` but are **standalone** -- own `venv/`, `requirements.txt`, not managed by pnpm/turborepo
+- Use Pydantic models for data structures (not plain dicts or dataclasses)
+- Use `rich` library for formatted console output
+- Typed function signatures on all functions
+- Error handling: descriptive error messages, graceful degradation for partial failures (e.g., skip invalid IDs with warning)
+- Scripts use `sys.path.insert(0, "src")` and relative data paths -- must be run from the app directory
 
 ## Agent Rules
 

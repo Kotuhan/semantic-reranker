@@ -56,6 +56,7 @@ graph TD
 
 | ID | Date | Summary |
 |----|------|---------|
+| task-001 | 2026-03-09 | Semantic re-ranker for intelligence reports: 3.1x search quality improvement over keyword baseline using cross-encoder model |
 | <!-- Completed tasks logged here --> |
 
 ---

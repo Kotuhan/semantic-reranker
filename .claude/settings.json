@@ -28,7 +28,13 @@
       "WebFetch",
       "Bash(sed -i '' 's|Document text for scoring = `title + \"\" \"\" + description` \\(concatenation of the two richest text fields\\)|Document text for scoring = `title + \"\". \"\" + description + \"\" Location: \"\" + country + \"\", \"\" + city + \"\".\"\"` \\(title/description for semantic content, country/city appended for geo-queries like \"\"Middle East\"\"\\)|' docs/tasks/task-001-semantic-reranker/insights/tl-design.md)",
       "Bash(sed -i '' 's|returns `f\"\"{report.title}. {report.description}\"\"` \\(period separator for sentence boundary\\)|returns `f\"\"{report.title}. {report.description} Location: {report.country}, {report.city}.\"\"` \\(country/city for geo-relevance\\)|' docs/tasks/task-001-semantic-reranker/insights/tl-design.md)",
-      "Bash(sed -i '' 's|Document text composition \\(title + description\\) is a straightforward engineering choice aligned with PO recommendation.|Document text composition \\(title + description + location\\) refined after user review to include country/city for geo-query support.|' docs/tasks/task-001-semantic-reranker/insights/tl-design.md)"
+      "Bash(sed -i '' 's|Document text composition \\(title + description\\) is a straightforward engineering choice aligned with PO recommendation.|Document text composition \\(title + description + location\\) refined after user review to include country/city for geo-query support.|' docs/tasks/task-001-semantic-reranker/insights/tl-design.md)",
+      "Bash(source venv/bin/activate)",
+      "Bash(pip install pydantic rich --quiet)",
+      "Bash(pip install sentence-transformers torch --quiet)",
+      "Bash(python main.py)",
+      "Bash(python evaluate.py)",
+      "Bash(/Users/user/dev/assignment/docs/tasks/task-001-semantic-reranker/insights/workflow-history.md:*)"
     ],
     "deny": [
       "Bash(rm -rf *)",

@@ -1,0 +1,512 @@
+[
+  {
+    "id": "RPT-001",
+    "title": "VBIED Attack on Military Convoy Near Mosul",
+    "description": "A vehicle-borne improvised explosive device (VBIED) was detonated against a military convoy traveling on the Mosul-Erbil highway. The vehicle, a modified Toyota Hilux packed with approximately 200kg of homemade explosives, was driven by a lone operative. The blast killed four soldiers and injured twelve, destroying two armored personnel carriers.",
+    "type": "tgalert",
+    "country": "Iraq",
+    "city": "Mosul",
+    "event_date": "2024-11-15",
+    "subcategories": {
+      "Target": ["Military/Security Forces"],
+      "Organization": ["Islamic State"],
+      "Attack": ["Vehicle-Borne IED"],
+      "Component": ["Main Charge", "Detonator", "Vehicle Platform"],
+      "Explosive": ["Ammonium Nitrate"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-002",
+    "title": "Seizure of TATP Precursors in Brussels Apartment",
+    "description": "Belgian Federal Police raided an apartment in the Molenbeek district and discovered 15 liters of concentrated hydrogen peroxide, acetone, and sulfuric acid — the key precursors for triacetone triperoxide (TATP) synthesis. The materials were sufficient to produce approximately 2kg of TATP. Two suspects were detained.",
+    "type": "hydra",
+    "country": "Belgium",
+    "city": "Brussels",
+    "event_date": "2024-10-02",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Unknown"],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["TATP"],
+      "Operating": ["Procurement"]
+    }
+  },
+  {
+    "id": "RPT-003",
+    "title": "Person-Borne IED Targets Provincial Governor's Compound",
+    "description": "A suicide operative wearing an explosive vest detonated at the entrance checkpoint of the provincial governor's compound in Nangarhar. The self-detonation killed the bomber and three security guards. The device contained ball bearings as fragmentation and used HMTD as the initiator with a DTAP main charge.",
+    "type": "tgalert",
+    "country": "Afghanistan",
+    "city": "Jalalabad",
+    "event_date": "2024-09-28",
+    "subcategories": {
+      "Target": ["Government/Diplomatic"],
+      "Organization": ["Islamic State Khorasan Province"],
+      "Attack": ["Person-Borne IED", "Suicide Attack"],
+      "Component": ["Explosive Vest", "Fragmentation", "Initiator"],
+      "Explosive": ["HMTD", "TATP"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-004",
+    "title": "RCIED Found on Highway Targeting Police Patrol",
+    "description": "Security forces discovered a radio-controlled improvised explosive device concealed in a roadside drainage culvert along the Kandahar-Helmand highway. The device used a modified mobile phone as the receiver trigger, connected to a commercial detonator and 10kg of ammonium nitrate fuel oil mixture. The cell phone trigger was set to activate upon receiving a specific incoming call.",
+    "type": "mobius",
+    "country": "Afghanistan",
+    "city": "Kandahar",
+    "event_date": "2024-12-03",
+    "subcategories": {
+      "Target": ["Police/Law Enforcement"],
+      "Organization": ["Taliban"],
+      "Attack": ["Radio-Controlled IED"],
+      "Component": ["Receiver", "Mobile Phone", "Detonator", "Main Charge"],
+      "Explosive": ["ANFO"],
+      "Operating": ["Emplacement"]
+    }
+  },
+  {
+    "id": "RPT-005",
+    "title": "Knife Attack at Jerusalem Light Rail Station",
+    "description": "A lone assailant armed with two kitchen knives attacked passengers at the Ammunition Hill light rail station in Jerusalem. Three civilians were stabbed before an off-duty security officer neutralized the attacker. The assailant had posted extremist content on social media hours before the attack.",
+    "type": "tgalert",
+    "country": "Israel",
+    "city": "Jerusalem",
+    "event_date": "2024-11-22",
+    "subcategories": {
+      "Target": ["Civilians/Population"],
+      "Organization": ["Lone Actor"],
+      "Attack": ["Knife/Edged Weapon"],
+      "Component": [],
+      "Explosive": [],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-006",
+    "title": "Car Bomb Detonated Outside Yemeni Ministry Building",
+    "description": "A sedan rigged with approximately 50kg of military-grade TNT was remotely detonated as a government ministerial motorcade passed the Ministry of Interior in Aden. The car-borne IED killed two ministry staff and wounded eight others. The device was triggered via a command wire running to a nearby building.",
+    "type": "tgalert",
+    "country": "Yemen",
+    "city": "Aden",
+    "event_date": "2024-08-17",
+    "subcategories": {
+      "Target": ["Government/Diplomatic"],
+      "Organization": ["Al-Qaeda in the Arabian Peninsula"],
+      "Attack": ["Vehicle-Borne IED"],
+      "Component": ["Command Wire", "Main Charge", "Vehicle Platform"],
+      "Explosive": ["TNT"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-007",
+    "title": "Drone-Dropped Munition Strikes Military Outpost",
+    "description": "A commercially available DJI Matrice 300 drone was modified to carry and release a 40mm grenade over a military outpost in Deir ez-Zor province. The drone approached at approximately 100 meters altitude before releasing the munition, which detonated on impact within the compound perimeter. Two soldiers sustained injuries.",
+    "type": "mobius",
+    "country": "Syria",
+    "city": "Deir ez-Zor",
+    "event_date": "2024-10-11",
+    "subcategories": {
+      "Target": ["Military/Security Forces"],
+      "Organization": ["Islamic State"],
+      "Attack": ["Drone/UAS Attack"],
+      "Component": ["Commercial Drone", "Munition", "Release Mechanism"],
+      "Explosive": ["Military Ordnance"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-008",
+    "title": "Interception of Ammonium Nitrate Shipment at Turkish Border",
+    "description": "Turkish customs officials intercepted a commercial truck carrying 2 tonnes of industrial-grade ammonium nitrate concealed beneath agricultural fertilizer bags at the Habur border crossing. Intelligence suggests the shipment was destined for an IED production cell operating in northern Iraq. The driver, a Turkish national, was arrested.",
+    "type": "hydra",
+    "country": "Turkey",
+    "city": "Silopi",
+    "event_date": "2024-09-05",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Unknown"],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["Ammonium Nitrate"],
+      "Operating": ["Smuggling/Trafficking"]
+    }
+  },
+  {
+    "id": "RPT-009",
+    "title": "Peroxide-Based Explosive Lab Discovered in Lyon Suburb",
+    "description": "French DGSI operatives dismantled a clandestine laboratory producing hexamethylene triperoxide diamine (HMTD) in a rented garage in Villeurbanne. Officers found completed HMTD initiators, hexamine fuel tablets, citric acid, and 30% hydrogen peroxide solution. The lab was capable of producing primary explosives from commonly available household and pharmacy items.",
+    "type": "hydra",
+    "country": "France",
+    "city": "Lyon",
+    "event_date": "2024-07-19",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Unknown"],
+      "Attack": [],
+      "Component": ["Initiator", "Precursor Chemicals"],
+      "Explosive": ["HMTD"],
+      "Operating": ["Manufacturing"]
+    }
+  },
+  {
+    "id": "RPT-010",
+    "title": "Command Wire IED Targeting Peacekeeping Convoy in Mali",
+    "description": "A command-wire improvised explosive device was detonated against a UN peacekeeping patrol vehicle near Gao, northern Mali. The device, buried under the road surface, was triggered by an operator positioned approximately 150 meters away using an electrical firing cable. The blast disabled the lead vehicle and caused two casualties.",
+    "type": "tgalert",
+    "country": "Mali",
+    "city": "Gao",
+    "event_date": "2024-11-01",
+    "subcategories": {
+      "Target": ["Military/Security Forces", "International Organizations"],
+      "Organization": ["Jama'at Nusrat al-Islam wal-Muslimin"],
+      "Attack": ["Command Wire IED"],
+      "Component": ["Command Wire", "Firing Cable", "Main Charge", "Buried Container"],
+      "Explosive": ["Military Ordnance"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-011",
+    "title": "Suicide Bomber Targets Shia Mosque During Friday Prayers",
+    "description": "A person-borne IED operative entered a Shia mosque in Peshawar during Friday prayers and detonated an explosive vest in the main prayer hall. The attack killed 34 worshippers and injured over 100. The explosive vest contained approximately 8kg of RDX with embedded steel ball bearings to maximize casualties.",
+    "type": "tgalert",
+    "country": "Pakistan",
+    "city": "Peshawar",
+    "event_date": "2024-08-09",
+    "subcategories": {
+      "Target": ["Religious/Ethnic", "Civilians/Population"],
+      "Organization": ["Islamic State Khorasan Province"],
+      "Attack": ["Person-Borne IED", "Suicide Attack"],
+      "Component": ["Explosive Vest", "Fragmentation"],
+      "Explosive": ["RDX"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-012",
+    "title": "Attempted Cyber Attack on SCADA Systems at Chemical Plant",
+    "description": "A sophisticated cyber intrusion targeting the supervisory control and data acquisition (SCADA) systems at a major chemical processing facility in Jubail Industrial City was detected and thwarted. The attack attempted to manipulate temperature and pressure controls in ammonium nitrate production lines, potentially causing a catastrophic explosion.",
+    "type": "info_item",
+    "country": "Saudi Arabia",
+    "city": "Jubail",
+    "event_date": "2024-10-30",
+    "subcategories": {
+      "Target": ["Critical Infrastructure"],
+      "Organization": ["Unknown State Actor"],
+      "Attack": ["Cyber Attack"],
+      "Component": ["Malware", "SCADA Exploit"],
+      "Explosive": [],
+      "Operating": ["Disruption"]
+    }
+  },
+  {
+    "id": "RPT-013",
+    "title": "Explosive Belt Workshop Raided in Idlib Province",
+    "description": "Syrian Democratic Forces, supported by coalition advisors, raided a workshop producing explosive belts and suicide vests in rural Idlib. The facility contained partially assembled person-borne IEDs, detonator components, 25kg of Semtex-type plastic explosive, and instructional manuals on vest construction. Evidence of at least 15 completed devices was found.",
+    "type": "hydra",
+    "country": "Syria",
+    "city": "Idlib",
+    "event_date": "2024-09-14",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Hayat Tahrir al-Sham"],
+      "Attack": [],
+      "Component": ["Explosive Vest", "Detonator", "Main Charge"],
+      "Explosive": ["Plastic Explosive"],
+      "Operating": ["Manufacturing"]
+    }
+  },
+  {
+    "id": "RPT-014",
+    "title": "Fertilizer Diversion Network Disrupted in Southeast Asia",
+    "description": "A joint operation between Philippine and Indonesian intelligence agencies dismantled a network diverting commercial calcium ammonium nitrate fertilizer to militant groups. The network had been smuggling CAN-based fertilizer from agricultural suppliers in Mindanao to bomb-making cells in Sulawesi via unmarked fishing vessels operating at night.",
+    "type": "hydra",
+    "country": "Philippines",
+    "city": "Cotabato",
+    "event_date": "2024-06-22",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Abu Sayyaf Group"],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["Calcium Ammonium Nitrate"],
+      "Operating": ["Smuggling/Trafficking"]
+    }
+  },
+  {
+    "id": "RPT-015",
+    "title": "Modified Consumer Drone Used in Assassination Attempt",
+    "description": "An assassination attempt using a DJI Mavic Pro drone carrying a small explosive charge targeted a senior military commander during an outdoor ceremony in Caracas. The drone-borne IED detonated prematurely approximately 30 meters from the target, causing minor injuries to bystanders. The device used a servo-activated release mechanism and a small C4 charge.",
+    "type": "tgalert",
+    "country": "Venezuela",
+    "city": "Caracas",
+    "event_date": "2024-07-04",
+    "subcategories": {
+      "Target": ["Military/Security Forces", "Government/Diplomatic"],
+      "Organization": ["Unknown"],
+      "Attack": ["Drone/UAS Attack"],
+      "Component": ["Commercial Drone", "Release Mechanism", "Explosive Charge"],
+      "Explosive": ["C4"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-016",
+    "title": "Potassium Chlorate Trafficking Ring Exposed in North Africa",
+    "description": "Moroccan security services arrested six individuals involved in trafficking potassium chlorate from industrial suppliers to extremist cells in the Sahel region. The chemical, commonly used in match-head production and pyrotechnics, serves as a potent oxidizer in improvised explosive mixtures. Over 500kg of potassium chlorate was seized across multiple locations.",
+    "type": "hydra",
+    "country": "Morocco",
+    "city": "Casablanca",
+    "event_date": "2024-08-28",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Al-Qaeda in the Islamic Maghreb"],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["Potassium Chlorate"],
+      "Operating": ["Smuggling/Trafficking"]
+    }
+  },
+  {
+    "id": "RPT-017",
+    "title": "Victim-Operated IED Concealed in Abandoned Market Stall",
+    "description": "A victim-operated IED using a pressure plate trigger was discovered in an abandoned market stall near a popular shopping area in Mogadishu. The device was designed to detonate when stepped on, containing approximately 5kg of TNT with added metallic fragmentation. A civilian alerted security forces after noticing suspicious wiring.",
+    "type": "mobius",
+    "country": "Somalia",
+    "city": "Mogadishu",
+    "event_date": "2024-12-10",
+    "subcategories": {
+      "Target": ["Civilians/Population"],
+      "Organization": ["Al-Shabaab"],
+      "Attack": ["Victim-Operated IED"],
+      "Component": ["Pressure Plate", "Main Charge", "Fragmentation"],
+      "Explosive": ["TNT"],
+      "Operating": ["Emplacement"]
+    }
+  },
+  {
+    "id": "RPT-018",
+    "title": "Car-Borne IED Factory Uncovered in Raqqa Suburb",
+    "description": "Coalition forces discovered a car-borne IED production facility in a warehouse on the outskirts of Raqqa. The facility contained three vehicles in various stages of conversion, with hidden compartments welded into the chassis for explosive payloads. Materials included 500kg of homemade ammonium nitrate-aluminum powder mixture and commercial detonating cord.",
+    "type": "hydra",
+    "country": "Syria",
+    "city": "Raqqa",
+    "event_date": "2024-11-08",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Islamic State"],
+      "Attack": [],
+      "Component": ["Vehicle Platform", "Hidden Compartment", "Main Charge", "Detonating Cord"],
+      "Explosive": ["Ammonium Nitrate/Aluminum"],
+      "Operating": ["Manufacturing"]
+    }
+  },
+  {
+    "id": "RPT-019",
+    "title": "Analysis of Emerging Drone Swarm Threat to Aviation",
+    "description": "An analytical assessment of the growing threat posed by coordinated drone swarms to commercial aviation. Recent incidents in the Middle East demonstrate that non-state actors are developing capabilities to deploy multiple low-cost UAVs simultaneously, potentially overwhelming airport defense systems and endangering aircraft during takeoff and landing phases.",
+    "type": "info_item",
+    "country": "International",
+    "city": "",
+    "event_date": "2024-10-15",
+    "subcategories": {
+      "Target": ["Critical Infrastructure", "Transportation"],
+      "Organization": [],
+      "Attack": ["Drone/UAS Attack"],
+      "Component": ["Commercial Drone", "Swarm Technology"],
+      "Explosive": [],
+      "Operating": ["Assessment"]
+    }
+  },
+  {
+    "id": "RPT-020",
+    "title": "Self-Detonation at Military Checkpoint in Burkina Faso",
+    "description": "An individual on a motorcycle detonated a body-worn explosive device at a military checkpoint on the road between Ouagadougou and Kaya. The self-detonation killed the bomber and two soldiers manning the checkpoint. The device appeared to be a military-grade explosive charge secured to the torso with a manual detonation switch.",
+    "type": "tgalert",
+    "country": "Burkina Faso",
+    "city": "Kaya",
+    "event_date": "2024-09-20",
+    "subcategories": {
+      "Target": ["Military/Security Forces"],
+      "Organization": ["Jama'at Nusrat al-Islam wal-Muslimin"],
+      "Attack": ["Person-Borne IED", "Suicide Attack"],
+      "Component": ["Body-Worn Device", "Manual Switch"],
+      "Explosive": ["Military Ordnance"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-021",
+    "title": "Hydrogen Peroxide Procurement Cell Arrested in Germany",
+    "description": "German BKA arrested three individuals in Düsseldorf who had purchased over 100 liters of concentrated hydrogen peroxide from online chemical suppliers using falsified business credentials. The suspects, linked to a Salafist network, were in the early planning stages of constructing TATP-based explosive devices targeting Christmas market events.",
+    "type": "hydra",
+    "country": "Germany",
+    "city": "Düsseldorf",
+    "event_date": "2024-11-28",
+    "subcategories": {
+      "Target": ["Civilians/Population"],
+      "Organization": ["Salafist Network"],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["TATP"],
+      "Operating": ["Procurement"]
+    }
+  },
+  {
+    "id": "RPT-022",
+    "title": "Remotely Triggered Culvert Bomb Strikes Convoy in Nigeria",
+    "description": "An IED concealed in a roadside culvert was detonated by remote signal as a Nigerian military convoy passed near Maiduguri. The device, triggered using a long-range radio transmitter, contained approximately 30kg of Pentolite. The remote triggering mechanism used a modified two-way radio operating on an encrypted frequency.",
+    "type": "tgalert",
+    "country": "Nigeria",
+    "city": "Maiduguri",
+    "event_date": "2024-10-19",
+    "subcategories": {
+      "Target": ["Military/Security Forces"],
+      "Organization": ["Boko Haram"],
+      "Attack": ["Radio-Controlled IED"],
+      "Component": ["Radio Transmitter", "Receiver", "Main Charge"],
+      "Explosive": ["Pentolite"],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-023",
+    "title": "Acetone Peroxide Synthesis Manual Circulated on Encrypted Forums",
+    "description": "Intelligence monitoring of encrypted messaging platforms identified a detailed instructional manual for synthesizing acetone peroxide (TATP) from widely available consumer products including nail polish remover, hair bleach developer, and battery acid. The document, written in Arabic with English translations, provided step-by-step instructions using kitchen equipment.",
+    "type": "al-khemia",
+    "country": "International",
+    "city": "",
+    "event_date": "2024-10-05",
+    "subcategories": {
+      "Target": [],
+      "Organization": [],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["TATP"],
+      "Operating": ["Knowledge Dissemination"]
+    }
+  },
+  {
+    "id": "RPT-024",
+    "title": "Vehicle Ram and Stab Attack at Paris Tourist Area",
+    "description": "An attacker drove a rented van into pedestrians near the Sacré-Cœur basilica before exiting and attacking bystanders with a hunting knife. Five people were injured in the vehicle ramming and two more were stabbed. The attacker was shot and wounded by responding police officers. No explosive materials were found in the vehicle.",
+    "type": "tgalert",
+    "country": "France",
+    "city": "Paris",
+    "event_date": "2024-08-03",
+    "subcategories": {
+      "Target": ["Civilians/Population", "Tourism"],
+      "Organization": ["Lone Actor"],
+      "Attack": ["Vehicle Ramming", "Knife/Edged Weapon"],
+      "Component": ["Vehicle"],
+      "Explosive": [],
+      "Operating": ["Delivery"]
+    }
+  },
+  {
+    "id": "RPT-025",
+    "title": "TNT Blocks Smuggled via Maritime Route to Sinai Peninsula",
+    "description": "Egyptian naval forces intercepted a dhow off the coast of Sharm el-Sheikh carrying 200kg of TNT blocks, detonating cord, and electrical detonators concealed in fish cargo. The shipment originated from a port in eastern Libya and was destined for militant operatives in the northern Sinai. The explosives were military-grade, likely diverted from Libyan stockpiles.",
+    "type": "hydra",
+    "country": "Egypt",
+    "city": "Sharm el-Sheikh",
+    "event_date": "2024-07-11",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Wilayat Sinai"],
+      "Attack": [],
+      "Component": ["Main Charge", "Detonating Cord", "Detonator"],
+      "Explosive": ["TNT"],
+      "Operating": ["Smuggling/Trafficking"]
+    }
+  },
+  {
+    "id": "RPT-026",
+    "title": "Chlorine Gas Release at Water Treatment Facility Thwarted",
+    "description": "Jordanian intelligence disrupted a plot to sabotage a water treatment plant near Amman by manipulating chlorine gas storage systems. The cell planned to release large quantities of chlorine gas into a residential area by remotely opening valve systems. The attack leveraged insider knowledge from a former plant employee recruited by the cell.",
+    "type": "info_item",
+    "country": "Jordan",
+    "city": "Amman",
+    "event_date": "2024-09-02",
+    "subcategories": {
+      "Target": ["Critical Infrastructure", "Civilians/Population"],
+      "Organization": ["Unknown"],
+      "Attack": ["Chemical/CBRN"],
+      "Component": ["Industrial Chemicals", "Insider Threat"],
+      "Explosive": [],
+      "Operating": ["Planning"]
+    }
+  },
+  {
+    "id": "RPT-027",
+    "title": "Multiple RCIEDs Targeting Election Day Infrastructure in Iraq",
+    "description": "Iraqi EOD teams neutralized four radio-controlled IEDs positioned along major roads leading to polling stations in Diyala province on the eve of provincial elections. Each device used a Nokia mobile phone receiver connected to a commercial electric detonator and main charges of 15-20kg of homemade explosive. The coordinated placement suggested a centralized cell directing operations.",
+    "type": "tgalert",
+    "country": "Iraq",
+    "city": "Baqubah",
+    "event_date": "2024-12-14",
+    "subcategories": {
+      "Target": ["Government/Diplomatic", "Critical Infrastructure"],
+      "Organization": ["Islamic State"],
+      "Attack": ["Radio-Controlled IED"],
+      "Component": ["Mobile Phone", "Receiver", "Detonator", "Main Charge"],
+      "Explosive": ["Homemade Explosive"],
+      "Operating": ["Emplacement"]
+    }
+  },
+  {
+    "id": "RPT-028",
+    "title": "Urea Nitrate Production Guide Found in Arrested Suspect's Phone",
+    "description": "A suspect arrested in Tunis for terror-related offenses was found to have detailed instructions for synthesizing urea nitrate from commercially available fertilizer and nitric acid on their mobile device. The guide described a process using common garden fertilizer dissolved in acid, yielding an effective but sensitivity-unstable primary explosive suitable for detonators.",
+    "type": "al-khemia",
+    "country": "Tunisia",
+    "city": "Tunis",
+    "event_date": "2024-11-06",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Ansar al-Sharia"],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["Urea Nitrate"],
+      "Operating": ["Knowledge Dissemination"]
+    }
+  },
+  {
+    "id": "RPT-029",
+    "title": "Arms-for-Precursors Exchange Network Along Afghan-Pakistan Border",
+    "description": "Intelligence reporting reveals an established barter network along the Torkham border crossing where small arms and ammunition are exchanged for bulk quantities of potassium nitrate and sulfur — key ingredients for improvised black powder and other explosive mixtures. The network uses legitimate cross-border trade in spices and textiles as cover for precursor material transfers.",
+    "type": "hydra",
+    "country": "Pakistan",
+    "city": "Peshawar",
+    "event_date": "2024-10-22",
+    "subcategories": {
+      "Target": [],
+      "Organization": ["Multiple Groups"],
+      "Attack": [],
+      "Component": ["Precursor Chemicals"],
+      "Explosive": ["Potassium Nitrate", "Black Powder"],
+      "Operating": ["Smuggling/Trafficking"]
+    }
+  },
+  {
+    "id": "RPT-030",
+    "title": "FPV Kamikaze Drone Strikes Police Station in Sahel Region",
+    "description": "A first-person-view (FPV) racing drone modified to carry a small RDX charge was flown directly into a police station in Tillabéri, Niger. The kamikaze-style drone attack destroyed a parked vehicle and caused structural damage. This represents the first documented use of FPV drone tactics by non-state actors in the West African theatre, mirroring techniques proliferated from the Ukraine conflict.",
+    "type": "mobius",
+    "country": "Niger",
+    "city": "Tillabéri",
+    "event_date": "2024-12-01",
+    "subcategories": {
+      "Target": ["Police/Law Enforcement"],
+      "Organization": ["Islamic State in the Greater Sahara"],
+      "Attack": ["Drone/UAS Attack"],
+      "Component": ["FPV Drone", "Explosive Charge"],
+      "Explosive": ["RDX"],
+      "Operating": ["Delivery"]
+    }
+  }
+]
